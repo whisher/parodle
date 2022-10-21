@@ -7,16 +7,16 @@ const Nav: React.FC = () => {
 			<nav>
 				<ul className="flex justify-between items-center">
 					<li>
-						<BiMenu className="h-9 w-9 text-lime-400" />
+						<BiMenu className="h-8 w-8 text-lime-400" />
 					</li>
 					<li>
-						<BiHelpCircle className="h-9 w-9 text-lime-400" />
+						<BiHelpCircle className="h-8 w-8 text-lime-400" />
 					</li>
 					<li className="ml-auto">
-						<BiBarChart className="h-9 w-9 text-red-400" />
+						<BiBarChart className="h-8 w-8 text-red-400" />
 					</li>
 					<li>
-						<BiCog className="h-9 w-9 text-red-400" />
+						<BiCog className="h-8 w-8 text-red-400" />
 					</li>
 				</ul>
 			</nav>
