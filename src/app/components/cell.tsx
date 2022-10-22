@@ -19,6 +19,9 @@ const Cell: React.FC<CellProps> = ({ char, match }) => {
 	} else if (match === IsMatch.WRONG) {
 		classNameContainer += ' !border-red-400';
 		classNameSpan += ' scale-100 bg-red-400';
+	} else {
+		classNameContainer += ' bg-gray-300';
+		return <div className={classNameContainer}>{char}</div>;
 	}
 
 	return (

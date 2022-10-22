@@ -45,18 +45,33 @@ const rowsSlice = createSlice({
 	name: 'rows',
 	initialState,
 	reducers: {
-		setSolution(state, action: PayloadAction<string>) {
-			const solution = action.payload;
+		setWords(state, action: PayloadAction<string[]>) {
+			const words = action.payload;
+			const solution = words[Math.floor(Math.random() * words.length)];
 			state.solution = solution;
 		},
 		updateRows(state, action: PayloadAction<string>) {
-			const guess = action.payload;
-			state.guesses = state.guesses + guess;
-			const lenGuesses = state.guesses.length - 1;
+			let guess = action.payload;
+			let lenGuesses = state.guesses.length;
+			if (guess === 'backspace' && lenGuesses === 0) {
+				return initialState;
+			} else if (guess === 'backspace' && lenGuesses > 0) {
+				state.guesses = state.guesses.slice(0, -1);
+				guess = '';
+				lenGuesses = state.guesses.length;
+				lenGuesses = lenGuesses > 0 ? lenGuesses : 0;
+			} else {
+				state.guesses = state.guesses + guess;
+				lenGuesses = state.guesses.length;
+				lenGuesses = lenGuesses - 1;
+			}
+			console.log('lenGuesses', lenGuesses);
 			const indexRow = Math.floor(lenGuesses / ROW_LEN);
 			const indexCell = lenGuesses < ROW_LEN ? lenGuesses : lenGuesses - ROW_LEN * indexRow;
 			state.rows[indexRow].guesses[indexCell] = guess;
-			if (guess === state.solution[indexCell]) {
+			if (guess === '') {
+				state.rows[indexRow].matches[indexCell] = IsMatch.NOT_SET;
+			} else if (guess === state.solution[indexCell]) {
 				state.rows[indexRow].matches[indexCell] = IsMatch.OK;
 			} else if (state.solution.includes(guess)) {
 				state.rows[indexRow].matches[indexCell] = IsMatch.IN_THE_SOLUTION;
@@ -67,7 +82,7 @@ const rowsSlice = createSlice({
 	}
 });
 
-export const { setSolution, updateRows } = rowsSlice.actions;
+export const { setWords, updateRows } = rowsSlice.actions;
 export default rowsSlice.reducer;
 
 export const getGameStatus = createSelector(
@@ -75,9 +90,11 @@ export const getGameStatus = createSelector(
 	(rows) => {
 		const level = rows.length;
 		const isSuccessFul =
-			rows.filter((row) => row.matches.every((match) => match === IsMatch.OK)).length > 0;
+			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match === IsMatch.OK))
+				.length > 0;
 		const hasFailed =
-			rows.filter((row) => row.matches.every((match) => match !== IsMatch.NOT_SET)).length === 6;
+			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match !== IsMatch.NOT_SET))
+				.length === 6;
 
 		return { level, isSuccessFul, hasFailed };
 	}

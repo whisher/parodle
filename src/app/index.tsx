@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 
-import { getGameStatus, setSolution, updateRows } from './store/rowsSlice';
-import { API_URL, KEYBOARD_KEYS } from './constants';
+import { getGameStatus, setWords, updateRows } from './store/rowsSlice';
+import { useGetWordsQuery } from './store/services';
+import { KEYBOARD_KEYS } from './constants';
 import { Alert } from './components/alert';
 import { Layout } from './components/layout';
 import { Table } from './components/table';
@@ -13,19 +14,21 @@ const App: React.FC = () => {
 	const rows = useAppSelector((state) => state.table.rows);
 	const solution = useAppSelector((state) => state.table.solution);
 	const gameStatus = useAppSelector(getGameStatus);
-
+	const { data, isError, isLoading } = useGetWordsQuery();
+	//console.log(data);
 	const dispatch = useAppDispatch();
-	const [error, setError] = useState<boolean>(false);
-	const [loading, setLoading] = useState<boolean>(false);
+	//const [error, setError] = useState<boolean>(false);
+	//const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		const handleGuesses = (ev: Event): void => {
 			ev.preventDefault();
 			if (gameStatus.isSuccessFul) {
 			}
-			const currentKey = (ev as unknown as KeyboardEvent).key.toLowerCase();
-			if (KEYBOARD_KEYS.includes(currentKey) && !gameStatus.isSuccessFul && !gameStatus.hasFailed) {
-				dispatch(updateRows(currentKey));
+			const guess = (ev as unknown as KeyboardEvent).key.toLowerCase();
+
+			if (KEYBOARD_KEYS.includes(guess) && !gameStatus.isSuccessFul && !gameStatus.hasFailed) {
+				dispatch(updateRows(guess));
 			}
 		};
 		window.addEventListener('keydown', handleGuesses);
@@ -35,31 +38,18 @@ const App: React.FC = () => {
 	}, [dispatch, gameStatus]);
 
 	useEffect(() => {
-		let isMounted = false;
-		setLoading(true);
-		const fetchWords = async () => {
-			const response = await fetch(API_URL);
-			const words = (await response.json()) as string[];
-			const randomWord = words[Math.floor(Math.random() * words.length)];
-			if (isMounted) {
-				dispatch(setSolution(randomWord));
-				setLoading(false);
-			}
-		};
-
-		fetchWords().catch(() => setError(true));
-		return () => {
-			isMounted = true;
-		};
-	}, [dispatch]);
-	if (loading) {
+		if (data) {
+			dispatch(setWords(data));
+		}
+	}, [dispatch, data]);
+	if (isLoading) {
 		return (
 			<Layout>
 				<Loader />
 			</Layout>
 		);
 	}
-	if (error) {
+	if (isError) {
 		return (
 			<Layout>
 				<Alert />
