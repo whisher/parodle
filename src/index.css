@@ -7,7 +7,7 @@
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
 	}
-	.clip-round {
-		clip-path: circle(30% at 50% 30%);
+	.clip-circle {
+		clip-path: circle(50% at 50% 90%);
 	}
 }

@@ -1,117 +1,57 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from './store/hooks';
 
-import { API_URL, ROW_LEN, KEYBOARD_KEYS } from './constants';
+import { getGameStatus, setSolution, updateRows } from './store/rowsSlice';
+import { API_URL, KEYBOARD_KEYS } from './constants';
 import { Alert } from './components/alert';
 import { Layout } from './components/layout';
 import { Table } from './components/table';
 import { Loader } from './components/loader';
 import { Nav } from './components/nav';
 
-import type { RowDto } from './types';
-import { IsMatch } from './types';
-
 const App: React.FC = () => {
-	const ref = useRef('');
+	const rows = useAppSelector((state) => state.table.rows);
+	const solution = useAppSelector((state) => state.table.solution);
+	const gameStatus = useAppSelector(getGameStatus);
+
+	const dispatch = useAppDispatch();
 	const [error, setError] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
-	const [solution, setSolution] = useState<string>('');
-	const [rows, setRows] = useState<RowDto[]>([
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		},
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		},
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		},
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		},
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		},
-		{
-			guesses: Array(ROW_LEN).fill(''),
-			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
-		}
-	]);
 
 	useEffect(() => {
-		const handleType = (ev: Event): void => {
+		const handleGuesses = (ev: Event): void => {
 			ev.preventDefault();
-
+			if (gameStatus.isSuccessFul) {
+			}
 			const currentKey = (ev as unknown as KeyboardEvent).key.toLowerCase();
-			if (KEYBOARD_KEYS.includes(currentKey)) {
-				ref.current = ref.current + currentKey;
-				const lenGuesses = ref.current.length - 1;
-
-				const indexRow = Math.floor(lenGuesses / ROW_LEN);
-
-				const indexCell = lenGuesses < ROW_LEN ? lenGuesses : lenGuesses - ROW_LEN * indexRow;
-
-				setRows((oldRows) => {
-					return oldRows.map((row, iR) => {
-						if (indexRow === iR) {
-							const guesses = [...row.guesses].map((cell, iC) => {
-								if (indexCell === iC) {
-									return currentKey;
-								}
-								return cell;
-							});
-							const matches = [...row.matches].map((cell, iC) => {
-								console.log('currentGuess', solution, solution[indexCell], currentKey);
-								if (indexCell === iC) {
-									if (currentKey === solution[indexCell]) {
-										return IsMatch.OK;
-									} else if (solution.includes(currentKey)) {
-										return IsMatch.IN_THE_SOLUTION;
-									} else {
-										return IsMatch.WRONG;
-									}
-								}
-								return cell;
-							});
-							return { guesses, matches };
-						}
-						return row;
-					});
-				});
+			if (KEYBOARD_KEYS.includes(currentKey) && !gameStatus.isSuccessFul && !gameStatus.hasFailed) {
+				dispatch(updateRows(currentKey));
 			}
 		};
-
-		window.addEventListener('keydown', handleType);
+		window.addEventListener('keydown', handleGuesses);
 		return () => {
-			window.removeEventListener('keydown', handleType);
+			window.removeEventListener('keydown', handleGuesses);
 		};
-	}, [solution]);
+	}, [dispatch, gameStatus]);
 
 	useEffect(() => {
 		let isMounted = false;
 		setLoading(true);
 		const fetchWords = async () => {
 			const response = await fetch(API_URL);
-			if (!response.ok) {
-				setError(true);
-			}
 			const words = (await response.json()) as string[];
 			const randomWord = words[Math.floor(Math.random() * words.length)];
 			if (isMounted) {
-				setSolution(randomWord);
+				dispatch(setSolution(randomWord));
 				setLoading(false);
 			}
 		};
 
-		fetchWords();
+		fetchWords().catch(() => setError(true));
 		return () => {
 			isMounted = true;
 		};
-	}, []);
+	}, [dispatch]);
 	if (loading) {
 		return (
 			<Layout>
@@ -140,3 +80,62 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+/**
+ * 
+ * 
+ * 
+ * const [rows, setRows] = useState<RowDto[]>([
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		},
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		},
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		},
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		},
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		},
+		{
+			guesses: Array(ROW_LEN).fill(''),
+			matches: Array(ROW_LEN).fill(IsMatch.NOT_SET)
+		}
+	]);
+setRows((oldRows) => {
+					return oldRows.map((row, iR) => {
+						if (indexRow === iR) {
+							const guesses = [...row.guesses].map((cell, iC) => {
+								if (indexCell === iC) {
+									return currentKey;
+								}
+								return cell;
+							});
+							const matches = [...row.matches].map((cell, iC) => {
+								console.log('currentGuess', solution, solution[indexCell], currentKey);
+								if (indexCell === iC) {
+									if (currentKey === solution[indexCell]) {
+										return IsMatch.OK;
+									} else if (solution.includes(currentKey)) {
+										return IsMatch.IN_THE_SOLUTION;
+									} else {
+										return IsMatch.WRONG;
+									}
+								}
+								return cell;
+							});
+							return { guesses, matches };
+						}
+						return row;
+					});
+				});
+ */
