@@ -73,7 +73,7 @@ const rowsSlice = createSlice({
 			//const indexCell = state.rows[indexRow].guesses.findIndex((val: string) => val === ''); //lenGuesses < ROW_LEN ? lenGuesses : lenGuesses - ROW_LEN * indexRow;
 			const indexCell = lenGuesses < ROW_LEN ? lenGuesses : lenGuesses - ROW_LEN * indexRow;
 			state.rows[indexRow].guesses[indexCell] = guess;
-
+			state.rows[indexRow].matches[indexCell] = IsMatch.TO_CHECK;
 			if (indexCell === 4) {
 				const indexStart = indexRow > 0 ? -ROW_LEN : 0;
 				console.log('indexStart', indexStart);
