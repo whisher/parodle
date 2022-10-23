@@ -14,6 +14,9 @@ module.exports = {
 				amber: {
 					400: '#f9b033'
 				},
+				gray: {
+					400: '#ecefec'
+				},
 				indigo: {
 					400: '#8a98c8'
 				},
