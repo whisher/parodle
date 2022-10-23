@@ -1,4 +1,4 @@
-export const API_URL = 'data.json';
+export const API_URL = '/data.json';
 export const ROW_LEN = 5;
 export const KEYBOARD_KEYS = [
 	'q',
@@ -26,5 +26,6 @@ export const KEYBOARD_KEYS = [
 	'v',
 	'b',
 	'n',
-	'm'
+	'm',
+	'backspace'
 ];

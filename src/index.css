@@ -8,6 +8,6 @@
 		-webkit-text-fill-color: transparent;
 	}
 	.clip-circle {
-		clip-path: circle(50% at 50% 90%);
+		clip-path: circle(40% at 50% 100%);
 	}
 }
