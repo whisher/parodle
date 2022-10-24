@@ -11,3 +11,6 @@
 		clip-path: circle(40% at 50% 100%);
 	}
 }
+h1 a {
+	display: block;
+}
