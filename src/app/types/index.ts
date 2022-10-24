@@ -8,4 +8,5 @@ export enum IsMatch {
 export type RowDto = {
 	matches: IsMatch[];
 	guesses: string[];
+	isValidWord: boolean;
 };
