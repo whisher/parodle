@@ -1,7 +1,7 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './';
 import type { RowDto } from '../types';
-import { IsMatch } from '../types';
+import { GameResult, IsMatch } from '../types';
 import { ROW_LEN } from '../constants';
 
 export interface RowsState {
@@ -111,26 +111,32 @@ const rowsSlice = createSlice({
 					}
 				}
 			}
+		},
+		reset() {
+			return initialState;
 		}
 	}
 });
 
-export const { setWords, updateRows } = rowsSlice.actions;
+export const { setWords, updateRows, reset } = rowsSlice.actions;
 export default rowsSlice.reducer;
 
 export const getGameStatus = createSelector(
 	(state: RootState) => state.table.rows,
 	(rows) => {
-		const level = rows.length;
-		const isSuccessFul =
-			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match === IsMatch.OK))
-				.length > 0;
-		const hasFailed =
-			rows.filter(
-				(row: RowDto) =>
-					row.matches.every((match: IsMatch) => match !== IsMatch.TO_CHECK) && row.isValidWord
-			).length === 6;
-
-		return { level, isSuccessFul, hasFailed };
+		const isSuccessLevel = rows.filter((row: RowDto) =>
+			row.matches.every((match: IsMatch) => match === IsMatch.OK)
+		).length;
+		const playingLevel = rows.filter(
+			(row: RowDto) =>
+				row.matches.every((match: IsMatch) => match !== IsMatch.TO_CHECK) && row.isValidWord
+		).length;
+		if (isSuccessLevel > 0) {
+			return { level: isSuccessLevel, result: GameResult.SUCCESS };
+		} else if (playingLevel === 6) {
+			return { level: 6, result: GameResult.FAILURE };
+		} else {
+			return { level: playingLevel, result: GameResult.PLAYING };
+		}
 	}
 );

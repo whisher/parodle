@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { GameResult } from '../app/types';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
-import { getGameStatus, setWords, updateRows } from '../app/store/rowsSlice';
-import { useGetWordsQuery } from '../app/store/services';
+import { getGameStatus, setWords, updateRows, reset } from '../app/store/rowsSlice';
+import { useGetWordsQuery, api } from '../app/store/services';
 import { KEYBOARD_KEYS } from '../app/constants';
 import { Alert } from '../app/components/alert';
-import { Table } from '../app/components/table';
 import { Loader } from '../app/components/loader';
+import { Modal } from '../app/components/modal';
+import { Table } from '../app/components/table';
 
 const Home: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -14,26 +16,34 @@ const Home: React.FC = () => {
 	const rows = useAppSelector((state) => state.table.rows);
 	const solution = useAppSelector((state) => state.table.solution);
 	const { data, isError, isLoading } = useGetWordsQuery();
-
+	const [open, setOpen] = useState(false);
+	const playAgain = () => {
+		dispatch(reset());
+		if (data) {
+			dispatch(setWords(data));
+		}
+		setOpen(false);
+	};
 	useEffect(() => {
 		if (data) {
 			dispatch(setWords(data));
-			//console.log('solution', solution);
 		}
 	}, [dispatch, data]);
 
 	useEffect(() => {
-		if (gameStatus.isSuccessFul) {
+		if (gameStatus.result === GameResult.SUCCESS) {
 			console.log('You are a winner');
+			setOpen(true);
 		}
-		if (gameStatus.hasFailed) {
+		if (gameStatus.result === GameResult.FAILURE) {
 			console.log('You are a looser');
+			setOpen(true);
 		}
 		const handleGuesses = (ev: Event): void => {
 			ev.preventDefault();
 			const guess = (ev as unknown as KeyboardEvent).key.toLowerCase();
 
-			if (KEYBOARD_KEYS.includes(guess) && !gameStatus.isSuccessFul && !gameStatus.hasFailed) {
+			if (KEYBOARD_KEYS.includes(guess) && gameStatus.result === GameResult.PLAYING) {
 				dispatch(updateRows(guess));
 			}
 		};
@@ -50,7 +60,12 @@ const Home: React.FC = () => {
 		return <Alert />;
 	}
 	console.log(solution);
-	return <Table invalidWord={invalidWord} rows={rows} />;
+	return (
+		<>
+			<Table invalidWord={invalidWord} rows={rows} />
+			<Modal open={open} gameStatus={gameStatus} solution={solution} onClose={playAgain} />
+		</>
+	);
 };
 
 export { Home };

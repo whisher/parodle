@@ -8,8 +8,8 @@ const Root: React.FC = () => {
 	return (
 		<Provider store={store}>
 			<div className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-gradient-from to-gradient-to">
-				<div className="lg:w-[482px] rounded-3xl pt-4 bg-bck">
-					<header className="px-4">
+				<div className="w-[90vw] lg:w-[482px] rounded-3xl bg-bck">
+					<header className="pt-4 px-4">
 						<nav>
 							<ul className="flex justify-between items-center">
 								<li>
