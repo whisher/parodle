@@ -14,7 +14,12 @@ export interface ModalProps {
 }
 export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 	const isSuccessFul = gameStatus.result === GameResult.SUCCESS;
-
+	console.log(gameStatus.level);
+	const btnMessage = isSuccessFul
+		? gameStatus.level === 1
+			? 'Ripetiti!'
+			: 'Ma puoi fare di meglio!'
+		: 'Puoi fare di meglio!';
 	useEffect(() => {
 		const escHandler = ({ key }: { key: string }) => {
 			if (key === 'Escape') {
@@ -52,10 +57,10 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 						<GameFailure solution={solution} />
 					)}
 					<button
-						className="h-10 w-40 flex justify-center items-center rounded-3xl bg-lime-400 text-xl text-white uppercase"
+						className="h-10 w-44 flex justify-center items-center  rounded-3xl bg-lime-400 text-xl text-white uppercase"
 						onClick={onClose}
 					>
-						{isSuccessFul ? 'Gioca!' : 'Ritenta!'}
+						{btnMessage}
 					</button>
 				</div>
 			</div>

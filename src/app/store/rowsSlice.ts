@@ -124,15 +124,15 @@ export default rowsSlice.reducer;
 export const getGameStatus = createSelector(
 	(state: RootState) => state.table.rows,
 	(rows) => {
-		const isSuccessLevel = rows.filter((row: RowDto) =>
-			row.matches.every((match: IsMatch) => match === IsMatch.OK)
-		).length;
+		const isSuccessFul =
+			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match === IsMatch.OK))
+				.length > 0;
 		const playingLevel = rows.filter(
 			(row: RowDto) =>
 				row.matches.every((match: IsMatch) => match !== IsMatch.TO_CHECK) && row.isValidWord
 		).length;
-		if (isSuccessLevel > 0) {
-			return { level: isSuccessLevel, result: GameResult.SUCCESS };
+		if (isSuccessFul) {
+			return { level: playingLevel, result: GameResult.SUCCESS };
 		} else if (playingLevel === 6) {
 			return { level: 6, result: GameResult.FAILURE };
 		} else {
