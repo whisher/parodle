@@ -1,3 +1,8 @@
+export enum GameResult {
+	FAILURE,
+	PLAYING,
+	SUCCESS
+}
 export enum IsMatch {
 	NOT_SET,
 	IN_THE_SOLUTION,

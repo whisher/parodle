@@ -3,10 +3,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import rowsReducer from './rowsSlice';
 
-import { queryApi } from './services';
+import { api } from './services';
 
 const rootReducer = combineReducers({
-	[queryApi.reducerPath]: queryApi.reducer,
+	[api.reducerPath]: api.reducer,
 	table: rowsReducer
 });
 
@@ -15,7 +15,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) =>
 			// adding the api middleware enables caching, invalidation, polling and other features of `rtk-query`
-			getDefaultMiddleware().concat(queryApi.middleware),
+			getDefaultMiddleware().concat(api.middleware),
 		preloadedState
 	});
 };
