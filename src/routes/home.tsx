@@ -23,10 +23,14 @@ const Home: React.FC = () => {
 	}, [dispatch, data]);
 
 	useEffect(() => {
+		if (gameStatus.isSuccessFul) {
+			console.log('You are a winner');
+		}
+		if (gameStatus.hasFailed) {
+			console.log('You are a looser');
+		}
 		const handleGuesses = (ev: Event): void => {
 			ev.preventDefault();
-			if (gameStatus.isSuccessFul) {
-			}
 			const guess = (ev as unknown as KeyboardEvent).key.toLowerCase();
 
 			if (KEYBOARD_KEYS.includes(guess) && !gameStatus.isSuccessFul && !gameStatus.hasFailed) {

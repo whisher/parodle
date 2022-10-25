@@ -126,8 +126,10 @@ export const getGameStatus = createSelector(
 			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match === IsMatch.OK))
 				.length > 0;
 		const hasFailed =
-			rows.filter((row: RowDto) => row.matches.every((match: IsMatch) => match !== IsMatch.NOT_SET))
-				.length === 6;
+			rows.filter(
+				(row: RowDto) =>
+					row.matches.every((match: IsMatch) => match !== IsMatch.TO_CHECK) && row.isValidWord
+			).length === 6;
 
 		return { level, isSuccessFul, hasFailed };
 	}
