@@ -8,7 +8,7 @@ const Row: React.FC<RowProps> = ({ row }) => {
 	return (
 		<div className="flex gap-2 lg:gap-3">
 			{row.guesses.map((char, i) => {
-				return <Cell key={i} char={char} match={row.matches[i]} />;
+				return <Cell key={i} i={i} char={char} match={row.matches[i]} />;
 			})}
 		</div>
 	);

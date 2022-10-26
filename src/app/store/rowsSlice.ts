@@ -10,6 +10,7 @@ export interface RowsState {
 	invalidWord: string;
 	rows: RowDto[];
 	words: string[];
+	keyboardKeysStatus: { [key: string]: IsMatch };
 }
 
 const initialState: RowsState = {
@@ -48,7 +49,8 @@ const initialState: RowsState = {
 			isValidWord: false
 		}
 	],
-	words: []
+	words: [],
+	keyboardKeysStatus: {}
 };
 
 const rowsSlice = createSlice({
@@ -96,14 +98,15 @@ const rowsSlice = createSlice({
 							state.rows[indexRow].isValidWord = true;
 							for (let i = 0; i <= indexCell; i++) {
 								guess = currentWord[i];
-								if (guess === '') {
-									state.rows[indexRow].matches[i] = IsMatch.NOT_SET;
-								} else if (guess === state.solution[i]) {
+								if (guess === state.solution[i]) {
 									state.rows[indexRow].matches[i] = IsMatch.OK;
+									state.keyboardKeysStatus[guess] = IsMatch.OK;
 								} else if (state.solution.includes(guess)) {
 									state.rows[indexRow].matches[i] = IsMatch.IN_THE_SOLUTION;
+									state.keyboardKeysStatus[guess] = IsMatch.IN_THE_SOLUTION;
 								} else {
 									state.rows[indexRow].matches[i] = IsMatch.WRONG;
+									state.keyboardKeysStatus[guess] = IsMatch.WRONG;
 								}
 							}
 							state.invalidWord = '';

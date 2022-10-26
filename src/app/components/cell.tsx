@@ -3,28 +3,29 @@ import React from 'react';
 import { IsMatch } from '../types';
 export interface CellProps {
 	char: string;
+	i: number;
 	match: IsMatch;
 }
-const Cell: React.FC<CellProps> = ({ char, match }) => {
+const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	let classNameContainer =
-		'h-11 w-11 lg:h-12 lg:w-12 border border-gray-400 rounded-xl text-2xl text-white font-bold uppercase overflow-hidden';
+		'h-11 w-11 lg:h-12 lg:w-12 border border-gray-400 rounded-2xl text-3xl text-white font-bold uppercase overflow-hidden';
 	let classNameTrasform =
-		'flex flex-col transition-transform -translate-y-11 lg:-translate-y-12 duration-500';
+		'flex flex-col rounded-2xl overflow-hidden transition-transform -translate-y-11 lg:-translate-y-12';
 	let classNameSpan1 = 'h-11 w-11 lg:h-12 lg:w-12 flex justify-center items-center';
-	let classNameSpan2 = `${classNameSpan1} bg-gray-400 text-bck/80 transition scale-0 duration-300`;
+	let classNameSpan2 = `${classNameSpan1} rounded-2xl lg:rounded-bl-2xl lg:rounded-br-2xl bg-gray-400 text-bck/80 transition scale-0 duration-300`;
 	if (match === IsMatch.OK) {
-		classNameContainer += ' bg-gray-400 !border-green-400';
+		classNameContainer += ' bg-green-400 !border-green-400';
 		classNameTrasform += ' !translate-y-0';
 		classNameSpan1 += ' bg-green-400';
 		classNameSpan2 += ' !text-bck/80 !scale-100';
 	} else if (match === IsMatch.IN_THE_SOLUTION) {
-		classNameContainer += ' bg-gray-400 !border-amber-400';
-		classNameTrasform += ' !-translate-y-0';
+		classNameContainer += ' bg-amber-400 !border-amber-400';
+		classNameTrasform += ' !translate-y-0';
 		classNameSpan1 += ' bg-amber-400';
 		classNameSpan2 += ' !text-bck/80 !scale-100';
 	} else if (match === IsMatch.WRONG) {
-		classNameContainer += ' bg-gray-400 !border-red-400';
-		classNameTrasform += ' !-translate-y-0';
+		classNameContainer += ' bg-red-400 !border-red-400';
+		classNameTrasform += ' !translate-y-0';
 		classNameSpan1 += ' bg-red-400';
 		classNameSpan2 += ' !text-bck/80 !scale-100';
 	} else if (match === IsMatch.TO_CHECK) {
@@ -36,7 +37,7 @@ const Cell: React.FC<CellProps> = ({ char, match }) => {
 
 	return (
 		<div className={classNameContainer}>
-			<div className={classNameTrasform}>
+			<div className={classNameTrasform} style={{ transitionDuration: `${i * 300}ms` }}>
 				<span className={classNameSpan1}>{char}</span>
 				<span className={classNameSpan2}>{char}</span>
 			</div>
