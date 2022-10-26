@@ -8,11 +8,12 @@ export interface CellProps {
 }
 const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	let classNameContainer =
-		'h-11 w-11 lg:h-12 lg:w-12 border border-gray-400 rounded-2xl text-3xl text-white font-bold uppercase overflow-hidden';
+		'h-11 w-11 lg:h-12 lg:w-12 rounded-2xl border border-gray-400 rounded-2xl text-3xl text-white font-bold uppercase overflow-hidden';
 	let classNameTrasform =
-		'flex flex-col rounded-2xl overflow-hidden transition-transform -translate-y-11 lg:-translate-y-12';
-	let classNameSpan1 = 'h-11 w-11 lg:h-12 lg:w-12 flex justify-center items-center';
-	let classNameSpan2 = `${classNameSpan1} rounded-2xl lg:rounded-bl-2xl lg:rounded-br-2xl bg-gray-400 text-bck/80 transition scale-0 duration-300`;
+		'flex flex-col rounded-2xl lg:rounded-none overflow-hidden transition-transform -translate-y-11 lg:-translate-y-12';
+	let classNameSpan1 =
+		'h-11 w-11 lg:h-12 lg:w-12 flex justify-center items-center rounded-tl-2xl rounded-tr-2xl lg:rounded-none';
+	let classNameSpan2 = `${classNameSpan1} bg-gray-400 text-bck/80 transition scale-0 duration-300`;
 	if (match === IsMatch.OK) {
 		classNameContainer += ' bg-green-400 !border-green-400';
 		classNameTrasform += ' !translate-y-0';
