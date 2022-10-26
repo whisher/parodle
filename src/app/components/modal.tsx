@@ -14,7 +14,6 @@ export interface ModalProps {
 }
 export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 	const isSuccessFul = gameStatus.result === GameResult.SUCCESS;
-	console.log(gameStatus.level);
 	const btnMessage = isSuccessFul
 		? gameStatus.level === 1
 			? 'Ripetiti!'
