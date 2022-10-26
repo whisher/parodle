@@ -20,7 +20,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 			<div className="flex justify-between items-center">
 				{['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase transition ${
+						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}
@@ -33,7 +33,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 			<div className="flex justify-between items-center">
 				{['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase transition ${
+						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}
@@ -46,7 +46,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 			<div className="flex justify-between items-center">
 				{['z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase transition ${
+						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}
