@@ -36,7 +36,7 @@ const Root: React.FC = () => {
 					<main className="flex flex-col justify-center items-center px-0 lg:px-0">
 						<Outlet />
 					</main>
-					<footer className="relative z-0 flex justify-center items-center pt-6 py-4 rounded-bl-3xl rounded-br-3xl bg-gradient-to-r from-lime-400/50 via-indigo-400/50 to-pink-400/50">
+					<footer className="flex justify-center items-center pt-6 py-4 rounded-bl-3xl rounded-br-3xl bg-gradient-to-r from-lime-400/50 via-indigo-400/50 to-pink-400/50">
 						<a
 							href="https://twitter.com/ilwebdifabio"
 							target="_blank"

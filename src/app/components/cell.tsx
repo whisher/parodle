@@ -15,9 +15,9 @@ const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 		'h-11 w-11 lg:h-12 lg:w-12 flex justify-center items-center rounded-tl-2xl rounded-tr-2xl lg:rounded-none';
 	let classNameSpan2 = `${classNameSpan1} bg-gray-400 text-bck/80 transition scale-0 duration-300`;
 	if (match === IsMatch.OK) {
-		classNameContainer += ' bg-green-400 !border-green-400';
+		classNameContainer += ' bg-green-400 !border-lime-400';
 		classNameTrasform += ' !translate-y-0';
-		classNameSpan1 += ' bg-green-400';
+		classNameSpan1 += ' bg-lime-400';
 		classNameSpan2 += ' !text-bck/80 !scale-100';
 	} else if (match === IsMatch.IN_THE_SOLUTION) {
 		classNameContainer += ' bg-amber-400 !border-amber-400';
