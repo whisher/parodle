@@ -26,12 +26,14 @@ const Statistics: React.FC = () => {
 		lastGameWonDate,
 		totalGamesWonLen,
 		totalGamesLostLen,
-		successRate
+		successRate,
+		currentStreak,
+		bestStreak
 	} = data;
 	return (
 		<div className="w-full flex flex-col gap-3 px-10 text-white">
 			<h2 className="mt-3 text-center text-4xl">Statistics</h2>
-			<div className="text-lg pt-3 border-t border-white/10">
+			<div className="text-lg border-t border-white/10">
 				<div className="flex flex-col gap-2 py-10 border-b border-white/10">
 					<p className="flex justify-between items-start">
 						<span className="underline decoration-white/50">
@@ -44,22 +46,32 @@ const Statistics: React.FC = () => {
 						</span>
 					</p>
 				</div>
-				<div className="w-full flex justify-between items-center my-20">
-					<p className="flex flex-col justify-center items-center">
+				<div className="w-full flex items-center my-16">
+					<p className="w-1/4 flex flex-col justify-center items-center">
 						<span className="text-4xl">{totalGames}</span>
-						<span className="text-sm">Partite</span>
+						<span className="text-xs">Partite</span>
 					</p>
-					<p className="flex flex-col justify-center items-center">
+					<p className="w-1/4 flex flex-col justify-center items-center">
 						<span className="text-4xl">{successRate}%</span>
-						<span className="text-sm">Vittorie</span>
+						<span className="text-xs">Vittorie</span>
 					</p>
-					<p className="flex flex-col justify-center items-center">
-						<span className="text-4xl">2</span>
-						<span className="text-sm">Vinte di fila</span>
+					<p className="w-1/4 flex flex-col justify-center items-center">
+						<span className="text-4xl">{currentStreak}</span>
+						<span className="text-xs">Vinte di fila</span>
 					</p>
-					<p className="flex flex-col justify-center items-center">
-						<span className="text-4xl">2</span>
-						<span className="text-sm">Record di vittorie in fila</span>
+					<p className="w-1/4 flex flex-col justify-center items-center">
+						<span className="text-4xl">{bestStreak}</span>
+						<span className="text-xs">Record di vittorie in fila</span>
+					</p>
+				</div>
+				<div className="w-full flex items-center mt-16 mb-20">
+					<p className="w-1/4 flex flex-col justify-center items-center">
+						<span className="text-4xl">{totalGames}</span>
+						<span className="text-xs">Migliore livello di vittoria</span>
+					</p>
+					<p className="w-1/4 flex flex-col justify-center items-center">
+						<span className="text-4xl">{successRate}%</span>
+						<span className="text-xs">Media livelli di vittoria</span>
 					</p>
 				</div>
 			</div>

@@ -47,7 +47,7 @@ const Root: React.FC = () => {
 						</a>
 						<span className="px-2 text-white/60">-</span>
 						<a
-							href="https://twitter.com/helveticarules"
+							href="https://dribbble.com/shots/17518652-Wordle-UI-UX-Redesign-Dribbble-Weekly-Warm-Up"
 							target="_blank"
 							rel="noreferrer"
 							className="text-xs text-white/60"

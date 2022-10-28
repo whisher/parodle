@@ -9,6 +9,8 @@ export interface StatisticDto {
 	totalGamesWonLen: number;
 	totalGamesLostLen: number;
 	successRate: number;
+	currentStreak: number;
+	bestStreak: number;
 }
 
 export const getStorage = (): StatisticResultDto[] => {
@@ -26,6 +28,30 @@ export const setStorage = (result: ResultDto): void => {
 	localStorage.setItem(STORAGE_STATISTICS_KEY, JSON.stringify(data));
 };
 
+export const getStreaks = (results: StatisticResultDto[]): number[] => {
+	let i = 0;
+	const result = [];
+	for (const item of results) {
+		if (item.result === GameResult.SUCCESS) {
+			i++;
+		} else {
+			result.push(i);
+			i = 0;
+		}
+	}
+	if (i) {
+		result.push(i);
+	}
+	return result;
+};
+export const getStreak = (
+	results: StatisticResultDto[]
+): { currentStreak: number; bestStreak: number } => {
+	const streaks = getStreaks(results);
+	const currentStreak = streaks[streaks.length - 1];
+	const bestStreak = Math.max(...streaks);
+	return { currentStreak, bestStreak };
+};
 export const getStatistics = (results: StatisticResultDto[]): StatisticDto | undefined => {
 	const totalGames = results.length;
 	if (totalGames > 0) {
@@ -36,13 +62,16 @@ export const getStatistics = (results: StatisticResultDto[]): StatisticDto | und
 		const totalGamesWonLen = totalGamesWon.length;
 		const totalGamesLostLen = totalGamesLost.length;
 		const successRate = Math.round((100 * totalGamesWonLen) / totalGames);
+		const { currentStreak, bestStreak } = getStreak(results);
 		return {
 			totalGames,
 			firstGameWonDate,
 			lastGameWonDate,
 			totalGamesWonLen,
 			totalGamesLostLen,
-			successRate
+			successRate,
+			currentStreak,
+			bestStreak
 		};
 	}
 	return undefined;
@@ -57,16 +86,5 @@ export const humanReadable = (ts: number) => {
 	});
 	return dateTimeFormat.format(date).replace(',', '');
 };
-/*const  isConsecutive(total: number,result: StatisticResultDto) {
-	if(result.result  === GameResult.SUCCESS){
-	return total + result;
-}
-export const sequceIsConsecutive = (results: StatisticResultDto[]) =>
-	Boolean(
-		results.reduce((acc, curr) => {
-			acc.result === GameResult.SUCCESS
-				
-		},0 )
-	);*/
-//console.log(getStorage());
+
 export const statistics = getStatistics(getStorage());
