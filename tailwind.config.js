@@ -10,8 +10,8 @@ module.exports = {
 					from: '#4d6777',
 					to: '#3e4b5e'
 				},
-				bck: '#343d4e'
-				/*amber: {
+				bck: '#343d4e',
+				amber: {
 					400: '#f9b033'
 				},
 				gray: {
@@ -28,7 +28,7 @@ module.exports = {
 				},
 				red: {
 					400: '#f27b89'
-				}*/
+				}
 			}
 		},
 		fontFamily: {

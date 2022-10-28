@@ -1,8 +1,14 @@
-import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
+import {
+	ActionReducerMapBuilder,
+	createSlice,
+	createSelector,
+	PayloadAction
+} from '@reduxjs/toolkit';
 import type { RootState } from './';
 import type { RowDto } from '../types';
 import { GameResult, IsMatch } from '../types';
 import { ROW_LEN } from '../constants';
+import { api } from './services';
 
 export interface RowsState {
 	solution: string;
@@ -115,9 +121,17 @@ const rowsSlice = createSlice({
 				}
 			}
 		},
-		reset() {
-			return initialState;
+		reset(state) {
+			const solution = state.words[Math.floor(Math.random() * state.words.length)];
+			return { ...initialState, ...{ words: state.words }, ...{ solution } };
 		}
+	},
+	extraReducers: (builder: ActionReducerMapBuilder<RowsState>) => {
+		builder.addMatcher(api.endpoints.getWords.matchFulfilled, (state, { payload }) => {
+			state.words = payload;
+			const solution = state.words[Math.floor(Math.random() * state.words.length)];
+			state.solution = solution;
+		});
 	}
 });
 

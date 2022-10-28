@@ -2,7 +2,6 @@ import type { PreloadedState } from '@reduxjs/toolkit';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import rowsReducer from './rowsSlice';
-
 import { api } from './services';
 
 const rootReducer = combineReducers({

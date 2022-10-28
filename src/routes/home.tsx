@@ -18,22 +18,13 @@ const Home: React.FC = () => {
 	const keyboardKeysStatus = useAppSelector((state) => state.table.keyboardKeysStatus);
 	const rows = useAppSelector((state) => state.table.rows);
 	const solution = useAppSelector((state) => state.table.solution);
-	const { data, isError, isLoading } = useGetWordsQuery();
+	const { isError, isLoading } = useGetWordsQuery();
 	const [open, setOpen] = useState(false);
 
 	const playAgain = () => {
 		dispatch(reset());
-		if (data) {
-			dispatch(setWords(data));
-		}
 		setOpen(false);
 	};
-
-	useEffect(() => {
-		if (data) {
-			dispatch(setWords(data));
-		}
-	}, [dispatch, data]);
 
 	useEffect(() => {
 		if (gameStatus.result === GameResult.SUCCESS) {
@@ -76,6 +67,7 @@ const Home: React.FC = () => {
 	}
 
 	console.log(solution);
+
 	return (
 		<>
 			<Table invalidWord={invalidWord} rows={rows} />

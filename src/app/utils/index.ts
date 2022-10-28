@@ -26,17 +26,16 @@ export const setStorage = (result: ResultDto): void => {
 	localStorage.setItem(STORAGE_STATISTICS_KEY, JSON.stringify(data));
 };
 
-export const getStatistics = (): StatisticDto | undefined => {
-	const data = getStorage();
-	const totalGames = data.length;
+export const getStatistics = (results: StatisticResultDto[]): StatisticDto | undefined => {
+	const totalGames = results.length;
 	if (totalGames > 0) {
-		const totalGamesWon = data.filter((game) => game.result === GameResult.SUCCESS);
+		const totalGamesWon = results.filter((game) => game.result === GameResult.SUCCESS);
 		const firstGameWonDate = humanReadable(totalGamesWon[0].timestamp);
 		const lastGameWonDate = humanReadable(totalGamesWon.slice(-1)[0].timestamp);
-		const totalGamesLost = data.filter((game) => game.result === GameResult.FAILURE);
+		const totalGamesLost = results.filter((game) => game.result === GameResult.FAILURE);
 		const totalGamesWonLen = totalGamesWon.length;
 		const totalGamesLostLen = totalGamesLost.length;
-		const successRate = Math.round((100 * totalGamesWonLen) / Math.max(totalGames, 1));
+		const successRate = Math.round((100 * totalGamesWonLen) / totalGames);
 		return {
 			totalGames,
 			firstGameWonDate,
@@ -58,3 +57,16 @@ export const humanReadable = (ts: number) => {
 	});
 	return dateTimeFormat.format(date).replace(',', '');
 };
+/*const  isConsecutive(total: number,result: StatisticResultDto) {
+	if(result.result  === GameResult.SUCCESS){
+	return total + result;
+}
+export const sequceIsConsecutive = (results: StatisticResultDto[]) =>
+	Boolean(
+		results.reduce((acc, curr) => {
+			acc.result === GameResult.SUCCESS
+				
+		},0 )
+	);*/
+//console.log(getStorage());
+export const statistics = getStatistics(getStorage());
