@@ -63,7 +63,6 @@ export const getAverageLevels = (
 		.map((result) => result.level);
 	const bestLevel = Math.min(...levels);
 	const averageLevel = (levels.reduce((acc, curr) => acc + curr, 0) / levels.length).toFixed(1);
-	console.log({ bestLevel, averageLevel });
 	return { bestLevel, averageLevel };
 };
 
@@ -104,5 +103,3 @@ export const humanReadable = (ts: number) => {
 	});
 	return dateTimeFormat.format(date).replace(',', '');
 };
-
-export const statistics = getStatistics(getStorage());

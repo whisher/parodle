@@ -74,7 +74,7 @@ const Info: React.FC = () => {
 				</p>
 				<p className="flex items-center mb-10">
 					Cosa aspetti
-					<span className="h-6 w-20 inline-flex justify-center items-center mx-1.5 rounded-3xl bg-lime-400  text-white uppercase">
+					<span className="px-1.5 text-lime-400 uppercase underline">
 						<Link to="/">Gioca!</Link>
 					</span>
 					e che la forza sia con te <BiHappy className="h-7 w-7 ml-0.5 text-white" />

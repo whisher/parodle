@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BiHappy } from 'react-icons/bi';
-import { statistics } from '../app/utils';
+import { getStorage, getStatistics } from '../app/utils';
 const Statistics: React.FC = () => {
-	const data = statistics;
+	const data = getStatistics(getStorage());
 
 	if (!data) {
 		return (
 			<div className="flex flex-col justify-center items-center gap-6 h-96 text-2xl text-white">
 				<p className="flex items-center">
 					Non barare
-					<span className="h-6 w-20 inline-flex justify-center items-center mx-1.5 rounded-3xl bg-lime-400  text-white uppercase">
+					<span className="px-1.5 text-lime-400 uppercase underline">
 						<Link to="/">Gioca!</Link>
 					</span>
 				</p>
