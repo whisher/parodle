@@ -12,8 +12,8 @@ const Info: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col gap-3 px-10 text-white">
-			<h2 className="mt-3 text-center text-4xl text-white">COME GIOCARE</h2>
+		<div className="w-full flex flex-col gap-3 px-10 text-white">
+			<h2 className="mt-3 text-center text-4xl">COME GIOCARE</h2>
 			<div className="text-lg pt-3 border-t border-white/10">
 				<p>Indovina delle PARoLE di 5 lettere in 6 tentativi.</p>
 				<p>
@@ -77,7 +77,7 @@ const Info: React.FC = () => {
 					<span className="h-6 w-20 inline-flex justify-center items-center mx-1.5 rounded-3xl bg-lime-400  text-white uppercase">
 						<Link to="/">Gioca!</Link>
 					</span>
-					che la forza sia con te <BiHappy className="h-7 w-7 ml-0.5 text-white" />
+					e che la forza sia con te <BiHappy className="h-7 w-7 ml-0.5 text-white" />
 				</p>
 			</div>
 		</div>

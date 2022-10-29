@@ -29,3 +29,5 @@ export const KEYBOARD_KEYS = [
 	'm',
 	'backspace'
 ];
+
+export const STORAGE_STATISTICS_KEY = 'STORAGE_STATISTICS_KEY';

@@ -3,6 +3,7 @@ import { GameResult } from '../app/types';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
 import { getGameStatus, setWords, updateRows, reset } from '../app/store/rowsSlice';
 import { useGetWordsQuery } from '../app/store/services';
+import { setStorage } from '../app/utils';
 import { KEYBOARD_KEYS } from '../app/constants';
 import { Alert } from '../app/components/alert';
 import { Loader } from '../app/components/loader';
@@ -17,30 +18,21 @@ const Home: React.FC = () => {
 	const keyboardKeysStatus = useAppSelector((state) => state.table.keyboardKeysStatus);
 	const rows = useAppSelector((state) => state.table.rows);
 	const solution = useAppSelector((state) => state.table.solution);
-	const { data, isError, isLoading } = useGetWordsQuery();
+	const { isError, isLoading } = useGetWordsQuery();
 	const [open, setOpen] = useState(false);
-	console.log('keyboardKeysStatus', keyboardKeysStatus);
+
 	const playAgain = () => {
 		dispatch(reset());
-		if (data) {
-			dispatch(setWords(data));
-		}
 		setOpen(false);
 	};
 
 	useEffect(() => {
-		if (data) {
-			dispatch(setWords(data));
-		}
-	}, [dispatch, data]);
-
-	useEffect(() => {
 		if (gameStatus.result === GameResult.SUCCESS) {
-			console.log('You are a winner');
+			setStorage(gameStatus);
 			setOpen(true);
 		}
 		if (gameStatus.result === GameResult.FAILURE) {
-			console.log('You are a looser');
+			setStorage(gameStatus);
 			setOpen(true);
 		}
 	}, [gameStatus]);
@@ -61,7 +53,6 @@ const Home: React.FC = () => {
 	}, [dispatch]);
 
 	const handleKeyboardClick = (guess: string) => {
-		console.log(guess);
 		if (KEYBOARD_KEYS.includes(guess)) {
 			dispatch(updateRows(guess));
 		}
@@ -76,6 +67,7 @@ const Home: React.FC = () => {
 	}
 
 	console.log(solution);
+
 	return (
 		<>
 			<Table invalidWord={invalidWord} rows={rows} />
