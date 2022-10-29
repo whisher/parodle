@@ -11,6 +11,8 @@ export interface StatisticDto {
 	successRate: number;
 	currentStreak: number;
 	bestStreak: number;
+	bestLevel: number;
+	averageLevel: string;
 }
 
 export const getStorage = (): StatisticResultDto[] => {
@@ -52,6 +54,19 @@ export const getStreak = (
 	const bestStreak = Math.max(...streaks);
 	return { currentStreak, bestStreak };
 };
+
+export const getAverageLevels = (
+	results: StatisticResultDto[]
+): { bestLevel: number; averageLevel: string } => {
+	const levels = results
+		.filter((result) => result.result === GameResult.SUCCESS)
+		.map((result) => result.level);
+	const bestLevel = Math.min(...levels);
+	const averageLevel = (levels.reduce((acc, curr) => acc + curr, 0) / levels.length).toFixed(1);
+	console.log({ bestLevel, averageLevel });
+	return { bestLevel, averageLevel };
+};
+
 export const getStatistics = (results: StatisticResultDto[]): StatisticDto | undefined => {
 	const totalGames = results.length;
 	if (totalGames > 0) {
@@ -63,6 +78,7 @@ export const getStatistics = (results: StatisticResultDto[]): StatisticDto | und
 		const totalGamesLostLen = totalGamesLost.length;
 		const successRate = Math.round((100 * totalGamesWonLen) / totalGames);
 		const { currentStreak, bestStreak } = getStreak(results);
+		const { bestLevel, averageLevel } = getAverageLevels(results);
 		return {
 			totalGames,
 			firstGameWonDate,
@@ -71,7 +87,9 @@ export const getStatistics = (results: StatisticResultDto[]): StatisticDto | und
 			totalGamesLostLen,
 			successRate,
 			currentStreak,
-			bestStreak
+			bestStreak,
+			bestLevel,
+			averageLevel
 		};
 	}
 	return undefined;

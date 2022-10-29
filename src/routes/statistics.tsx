@@ -24,11 +24,11 @@ const Statistics: React.FC = () => {
 		totalGames,
 		firstGameWonDate,
 		lastGameWonDate,
-		totalGamesWonLen,
-		totalGamesLostLen,
 		successRate,
 		currentStreak,
-		bestStreak
+		bestStreak,
+		bestLevel,
+		averageLevel
 	} = data;
 	return (
 		<div className="w-full flex flex-col gap-3 px-10 text-white">
@@ -57,20 +57,20 @@ const Statistics: React.FC = () => {
 					</p>
 					<p className="w-1/4 flex flex-col justify-center items-center">
 						<span className="text-4xl">{currentStreak}</span>
-						<span className="text-xs">Vinte di fila</span>
+						<span className="text-xs">Ultime vinte di fila</span>
 					</p>
 					<p className="w-1/4 flex flex-col justify-center items-center">
 						<span className="text-4xl">{bestStreak}</span>
 						<span className="text-xs">Record di vittorie in fila</span>
 					</p>
 				</div>
-				<div className="w-full flex items-center mt-16 mb-20">
+				<div className="w-full flex justify-around items-center mt-16 mb-20">
 					<p className="w-1/4 flex flex-col justify-center items-center">
-						<span className="text-4xl">{totalGames}</span>
+						<span className="text-4xl">{bestLevel}</span>
 						<span className="text-xs">Migliore livello di vittoria</span>
 					</p>
 					<p className="w-1/4 flex flex-col justify-center items-center">
-						<span className="text-4xl">{successRate}%</span>
+						<span className="text-4xl">{averageLevel}</span>
 						<span className="text-xs">Media livelli di vittoria</span>
 					</p>
 				</div>
