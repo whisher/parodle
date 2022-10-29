@@ -8,27 +8,27 @@ export interface CellProps {
 }
 const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	let classNameContainer =
-		'h-11 w-11 lg:h-12 lg:w-12 rounded-2xl border border-gray-400 rounded-2xl text-3xl text-white font-bold uppercase overflow-hidden';
+		'[perspective:1000px] h-11 w-11 lg:h-12 lg:w-12 rounded-2xl border border-trasparent text-3xl text-white font-bold uppercase overflow-hidden';
 	let classNameTrasform =
-		'flex flex-col rounded-2xl lg:rounded-none overflow-hidden transition-transform -translate-y-11 lg:-translate-y-12';
+		'[transform-style:preserve-3d] w-full h-full relative transition-all duration-1000';
 	let classNameSpan1 =
-		'h-11 w-11 lg:h-12 lg:w-12 flex justify-center items-center rounded-tl-2xl rounded-tr-2xl lg:rounded-none';
-	let classNameSpan2 = `${classNameSpan1} bg-gray-400 text-bck/80 transition scale-0 duration-300`;
+		'[backface-visibility:hidden] absolute w-full h-full flex justify-center items-center';
+	let classNameSpan2 = `${classNameSpan1} bg-gray-400 text-bck/80`;
 	if (match === IsMatch.OK) {
-		classNameContainer += ' bg-green-400 !border-lime-400';
-		classNameTrasform += ' !translate-y-0';
-		classNameSpan1 += ' bg-lime-400';
-		classNameSpan2 += ' !text-bck/80 !scale-100';
+		classNameContainer += ' !border-lime-400';
+		classNameTrasform += ' rotate-180';
+		classNameSpan1 += '';
+		classNameSpan2 += ' !bg-green-400 !border-lime-400 rotate-180 !scale-100';
 	} else if (match === IsMatch.IN_THE_SOLUTION) {
-		classNameContainer += ' bg-amber-400 !border-amber-400';
-		classNameTrasform += ' !translate-y-0';
-		classNameSpan1 += ' bg-amber-400';
-		classNameSpan2 += ' !text-bck/80 !scale-100';
+		classNameContainer += ' !border-amber-400';
+		classNameTrasform += ' rotate-180';
+		classNameSpan1 += '';
+		classNameSpan2 += ' !bg-amber-400 !border-amber-400 rotate-180 !scale-100';
 	} else if (match === IsMatch.WRONG) {
-		classNameContainer += ' bg-red-400 !border-red-400';
-		classNameTrasform += ' !translate-y-0';
-		classNameSpan1 += ' bg-red-400';
-		classNameSpan2 += ' !text-bck/80 !scale-100';
+		classNameContainer += ' !border-red-400';
+		classNameTrasform += ' rotate-180';
+		classNameSpan1 += '';
+		classNameSpan2 += ' !bg-red-400 !border-red-400 rotate-180 !scale-100';
 	} else if (match === IsMatch.TO_CHECK) {
 		classNameContainer += ' bg-gray-400';
 		classNameSpan2 += ' !text-bck/80 !scale-100';
@@ -39,8 +39,12 @@ const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	return (
 		<div className={classNameContainer}>
 			<div className={classNameTrasform} style={{ transitionDuration: `${i * 300}ms` }}>
-				<span className={classNameSpan1}>{char}</span>
-				<span className={classNameSpan2}>{char}</span>
+				<div className={classNameSpan1}>
+					<span className="">{char}</span>
+				</div>
+				<div className={classNameSpan2}>
+					<span className="">{char}</span>
+				</div>
 			</div>
 		</div>
 	);
