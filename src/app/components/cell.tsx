@@ -8,7 +8,59 @@ export interface CellProps {
 }
 const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	let classNameContainer =
-		'[perspective:1000px] h-11 w-11 lg:h-14 lg:w-14 rounded-2xl text-3xl text-white font-bold uppercase overflow-hidden';
+		'[perspective:1000px] h-12 w-12 lg:h-14 lg:w-14 rounded-xl overflow-hidden text-3xl text-white';
+	let classNameTrasform = '[transform-style:preserve-3d] relative transition-all';
+	let classNameSpan1 =
+		'[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center z-[2] [transform:rotateY(0deg)]';
+	let classNameSpan2 = `[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center [transform:rotateY(180deg)]`;
+	if (match === IsMatch.OK) {
+		classNameContainer += ' bg-gray-400';
+		classNameTrasform += ' [transform:rotateY(180deg)]';
+		classNameSpan2 += ' bg-lime-400';
+	} else if (match === IsMatch.IN_THE_SOLUTION) {
+		classNameContainer += ' bg-gray-400';
+		classNameTrasform += ' [transform:rotateY(180deg)]';
+		classNameSpan2 += ' bg-amber-400';
+	} else if (match === IsMatch.WRONG) {
+		classNameContainer += ' bg-gray-400';
+		classNameTrasform += ' [transform:rotateY(180deg)]';
+		classNameSpan2 += ' bg-red-400';
+	} else if (match === IsMatch.TO_CHECK) {
+		classNameSpan1 += ' bg-gray-400 !text-bck/80 !scale-100';
+	} else {
+		classNameContainer += ' bg-gray-400';
+	}
+
+	return (
+		<div className={classNameContainer}>
+			<div className={classNameTrasform} style={{ transitionDuration: `${i * 500}ms` }}>
+				<div className={classNameSpan1}>
+					<span className="">{char}</span>
+				</div>
+				<div className={classNameSpan2}>
+					<span className="">{char}</span>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export { Cell };
+
+/*
+<div className={classNameContainer}>
+			<div className={classNameTrasform} style={{ transitionDuration: `${i * 300}ms` }}>
+				<div className={classNameSpan1}>
+					<span className="">{char}</span>
+				</div>
+				<div className={classNameSpan2}>
+					<span className="">{char}</span>
+				</div>
+			</div>
+		</div>
+const Cell: React.FC<CellProps> = ({ char, i, match }) => {
+	let classNameContainer =
+		'[perspective:1000px] h-11 w-11 lg:h-14 lg:w-14  text-3xl text-white font-bold uppercase overflow-hidden';
 	let classNameTrasform =
 		'[transform-style:preserve-3d] w-full h-full relative overflow-hidden bg-gray-400 transition-all duration-[5000ms]';
 	let classNameSpan1 =
@@ -35,21 +87,4 @@ const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	} else {
 		classNameContainer += ' bg-gray-400';
 	}
-
-	return (
-		<div className="bg-bck overflow-hidden relative z-0">
-			<div className={classNameContainer}>
-				<div className={classNameTrasform} style={{ transitionDuration: `${i * 300}ms` }}>
-					<div className={classNameSpan1}>
-						<span className="">{char}</span>
-					</div>
-					<div className={classNameSpan2}>
-						<span className="">{char}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-};
-
-export { Cell };
+*/
