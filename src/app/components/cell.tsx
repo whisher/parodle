@@ -7,35 +7,46 @@ export interface CellProps {
 	match: IsMatch;
 }
 const Cell: React.FC<CellProps> = ({ char, i, match }) => {
+	const index = i + 1;
 	let classNameContainer =
 		'[perspective:1000px] h-12 w-12 lg:h-14 lg:w-14 rounded-xl overflow-hidden text-3xl text-white';
 	let classNameTrasform = '[transform-style:preserve-3d] relative transition-all';
 	let classNameSpan1 =
 		'[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center z-[2] [transform:rotateY(0deg)]';
-	let classNameSpan2 = `[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center [transform:rotateY(180deg)]`;
+	let classNameSpan2 =
+		'[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center [transform:rotateY(180deg)]';
+	let classNameInnerSpan1 = 'transition';
 	if (match === IsMatch.OK) {
 		classNameContainer += ' bg-gray-400';
+		classNameSpan1 += ' bg-gray-400 !text-bck/80';
 		classNameTrasform += ' [transform:rotateY(180deg)]';
 		classNameSpan2 += ' bg-lime-400';
 	} else if (match === IsMatch.IN_THE_SOLUTION) {
 		classNameContainer += ' bg-gray-400';
+		classNameSpan1 += ' bg-gray-400 !text-bck/80';
 		classNameTrasform += ' [transform:rotateY(180deg)]';
 		classNameSpan2 += ' bg-amber-400';
 	} else if (match === IsMatch.WRONG) {
 		classNameContainer += ' bg-gray-400';
+		classNameSpan1 += ' bg-gray-400 !text-bck/80';
 		classNameTrasform += ' [transform:rotateY(180deg)]';
 		classNameSpan2 += ' bg-red-400';
 	} else if (match === IsMatch.TO_CHECK) {
-		classNameSpan1 += ' bg-gray-400 !text-bck/80 !scale-100';
+		classNameContainer += ' bg-gray-400';
+		classNameSpan1 += ' bg-gray-400 !text-bck/80';
+		classNameInnerSpan1 = ' !scale-100';
 	} else {
 		classNameContainer += ' bg-gray-400';
+		classNameInnerSpan1 = ' scale-0';
 	}
 
 	return (
 		<div className={classNameContainer}>
-			<div className={classNameTrasform} style={{ transitionDuration: `${i * 500}ms` }}>
+			<div className={classNameTrasform} style={{ transitionDuration: `${index * 500}ms` }}>
 				<div className={classNameSpan1}>
-					<span className="">{char}</span>
+					<span className={classNameInnerSpan1} style={{ transitionDuration: `500ms` }}>
+						{char}
+					</span>
 				</div>
 				<div className={classNameSpan2}>
 					<span className="">{char}</span>
