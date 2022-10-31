@@ -7,12 +7,15 @@ export interface GameSuccessProps {
 		level: number;
 		result: GameResult;
 	};
+	solution: string;
 }
-const GameSuccess: React.FC<GameSuccessProps> = ({ gameStatus }) => {
+const GameSuccess: React.FC<GameSuccessProps> = ({ gameStatus, solution }) => {
 	return (
-		<div className="flex flex-col justify-center items-center  gap-10">
+		<div className="flex flex-col justify-center items-center gap-10">
 			<BiHappy className="h-16 w-16 text-lime-400" />
-			<h3 className="text-4xl text-white/90">Hai vinto al {gameStatus.level}° livello.</h3>
+			<h3 className="px-3 lg:px-0 text-2xl text-white/90">
+				Hai indovinato la parola "{solution}" al {gameStatus.level}° livello.
+			</h3>
 		</div>
 	);
 };

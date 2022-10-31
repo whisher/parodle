@@ -1,3 +1,4 @@
+export const APP_NAME = 'Parodle';
 export const API_URL = '/data.json';
 export const ROW_LEN = 5;
 export const KEYBOARD_KEYS = [

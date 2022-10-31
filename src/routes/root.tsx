@@ -3,6 +3,7 @@ import { Outlet, Link } from 'react-router-dom';
 import { BiBarChart, BiHelpCircle, BiHomeAlt } from 'react-icons/bi';
 import { Provider } from 'react-redux';
 import { setupStore } from '../app/store';
+import { APP_NAME } from '../app/constants';
 const store = setupStore();
 const Root: React.FC = () => {
 	return (
@@ -30,7 +31,7 @@ const Root: React.FC = () => {
 							</ul>
 						</nav>
 						<h1 className="mt-2 p-0 uppercase text-5xl lg:text-7xl font-bold text-center text-gradient bg-gradient-to-r from-lime-400 via-indigo-400 to-pink-400">
-							<Link to="/">Parodle</Link>
+							<Link to="/">{APP_NAME}</Link>
 						</h1>
 					</header>
 					<main className="flex flex-col justify-center items-center px-0 lg:px-0">

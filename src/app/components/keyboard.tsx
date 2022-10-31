@@ -16,11 +16,11 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 		'4': 'text-red-400'
 	};
 	return (
-		<div className="w-full mt-10 pt-8 flex flex-col items-center gap-1 lg:gap-0 rounded-tl-full rounded-tr-full bg-gradient-to-r from-lime-400/50 via-indigo-400/50 to-pink-400/50">
+		<div className="w-full mt-3 lg:mt-10 pt-8 flex flex-col items-center gap-1 lg:gap-0 rounded-tl-[4rem] rounded-tr-[4rem] lg:rounded-tl-full lg:rounded-tr-full bg-gradient-to-r from-lime-400/50 via-indigo-400/50 to-pink-400/50">
 			<div className="flex justify-between items-center">
 				{['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none focus:outline-none transition ${
+						className={`h-8 w-8 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-3xl lg:text-2xl font-bold uppercase outline-none focus:outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}
@@ -33,7 +33,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 			<div className="flex justify-between items-center">
 				{['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none focus:outline-none transition ${
+						className={`h-8 w-8 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-3xl lg:text-2xl font-bold uppercase outline-none focus:outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}
@@ -46,7 +46,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboardKeysStatus, handleKeyboardC
 			<div className="flex justify-between items-center">
 				{['z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace'].map((key) => (
 					<button
-						className={`h-6 w-6 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-2xl font-bold uppercase outline-none focus:outline-none transition ${
+						className={`h-8 w-8 lg:h-9 lg:w-9 flex justify-center items-center bg-transparent text-3xl lg:text-2xl font-bold uppercase outline-none focus:outline-none transition ${
 							keyboardKeysStatus[key] ? backgroundColor[keyboardKeysStatus[key]] : 'text-white'
 						}`}
 						key={key}

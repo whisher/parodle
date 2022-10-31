@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GameResult } from '../app/types';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
-import { getGameStatus, setWords, updateRows, reset } from '../app/store/rowsSlice';
+import { getGameStatus, updateRows, reset } from '../app/store/rowsSlice';
 import { useGetWordsQuery } from '../app/store/services';
 import { setStorage } from '../app/utils';
 import { KEYBOARD_KEYS } from '../app/constants';
@@ -65,8 +65,6 @@ const Home: React.FC = () => {
 	if (isError) {
 		return <Alert />;
 	}
-
-	console.log(solution);
 
 	return (
 		<>

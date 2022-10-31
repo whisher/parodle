@@ -9,17 +9,15 @@ export interface TableProps {
 const Table: React.FC<TableProps> = ({ invalidWord, rows }) => {
 	const isInvalidWord = invalidWord.length > 0;
 	return (
-		<div className="w-full flex flex-col items-center gap-2 lg:gap-3">
+		<div className="w-full flex flex-col items-center gap-3 mt-3 lg:mt-0">
 			<div
-				className={`w-8/12 h-6 overflow-hidden rounded border transition ${
+				className={`hidden lg:flex w-8/12 h-6 justify-center items-center overflow-hidden rounded border transition ${
 					isInvalidWord ? 'border-red-400' : 'border-bck'
 				}`}
 				role="alert"
 			>
 				<span
-					className={`flex justify-center items-center w-full h-full bg-gray-500 text-red-400 text-xs transition ${
-						isInvalidWord ? 'scale-100' : 'scale-0'
-					}`}
+					className={`text-red-400 text-xs transition ${isInvalidWord ? 'scale-100' : 'scale-0'}`}
 				>
 					La parola "{invalidWord}" non è nella lista.
 				</span>
@@ -27,6 +25,18 @@ const Table: React.FC<TableProps> = ({ invalidWord, rows }) => {
 			{rows.map((row, i) => {
 				return <Row key={i} row={row} />;
 			})}
+			<div
+				className={`flex lg:hidden w-8/12 h-6 justify-center items-center overflow-hidden rounded border transition ${
+					isInvalidWord ? 'border-red-400' : 'border-bck'
+				}`}
+				role="alert"
+			>
+				<span
+					className={`text-red-400 text-sm transition ${isInvalidWord ? 'scale-100' : 'scale-0'}`}
+				>
+					La parola "{invalidWord}" non è nella lista.
+				</span>
+			</div>
 		</div>
 	);
 };
