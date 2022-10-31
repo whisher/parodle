@@ -51,7 +51,7 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 			>
 				<div className="flex-1 flex flex-col justify-center items-center gap-10">
 					{isSuccessFul ? (
-						<GameSuccess gameStatus={gameStatus} />
+						<GameSuccess gameStatus={gameStatus} solution={solution} />
 					) : (
 						<GameFailure solution={solution} />
 					)}

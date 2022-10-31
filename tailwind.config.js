@@ -7,27 +7,27 @@ module.exports = {
 		extend: {
 			colors: {
 				gradient: {
-					from: '#4d6777',
-					to: '#3e4b5e'
+					from: '#4d6787',
+					to: '#3e4b6e'
 				},
-				bck: '#343d4e',
+				bck: '#343d5e',
 				amber: {
-					400: '#f9b033'
+					400: '#f9b043'
 				},
 				gray: {
-					400: '#ecefec'
+					400: '#eceffc'
 				},
 				indigo: {
-					400: '#8a98c8'
+					400: '#8a98d8'
 				},
 				lime: {
-					400: '#7fccb5'
+					400: '#7fccc5'
 				},
 				pink: {
-					400: '#da8fbc'
+					400: '#da8fcc'
 				},
 				red: {
-					400: '#f27b89'
+					400: '#f27b99'
 				}
 			}
 		},

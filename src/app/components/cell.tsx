@@ -10,12 +10,12 @@ const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	const index = i + 1;
 	let classNameContainer =
 		'[perspective:1000px] h-12 w-12 lg:h-14 lg:w-14 rounded-xl overflow-hidden text-3xl text-white';
-	let classNameTrasform = '[transform-style:preserve-3d] relative transition-all';
+	let classNameTrasform = '[transform-style:preserve-3d] relative transition';
 	let classNameSpan1 =
 		'[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center z-[2] [transform:rotateY(0deg)]';
 	let classNameSpan2 =
 		'[backface-visibility:hidden] h-12 w-12 lg:h-14 lg:w-14 absolute top-0 left-0 flex justify-center items-center [transform:rotateY(180deg)]';
-	let classNameInnerSpan1 = 'transition';
+	let classNameInnerSpan1 = 'transition ease-[cubic-bezier(0.34, 1.56, 0.64, 1)]';
 	if (match === IsMatch.OK) {
 		classNameContainer += ' bg-gray-400';
 		classNameSpan1 += ' bg-gray-400 !text-bck/80';
@@ -34,7 +34,7 @@ const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	} else if (match === IsMatch.TO_CHECK) {
 		classNameContainer += ' bg-gray-400';
 		classNameSpan1 += ' bg-gray-400 !text-bck/80';
-		classNameInnerSpan1 = ' !scale-100';
+		classNameInnerSpan1 += ' !scale-100';
 	} else {
 		classNameContainer += ' bg-gray-400';
 		classNameInnerSpan1 = ' scale-0';

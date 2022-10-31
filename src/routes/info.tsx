@@ -12,9 +12,9 @@ const Info: React.FC = () => {
 	};
 
 	return (
-		<div className="w-full flex flex-col gap-3 px-10 text-white">
+		<div className="w-full flex flex-col gap-3 px-6 text-white">
 			<h2 className="mt-3 text-center text-4xl">COME GIOCARE</h2>
-			<div className="text-lg pt-3 border-t border-white/10">
+			<div className="text-lg pt-4 border-t border-white/10">
 				<p>Indovina delle PARoLE di 5 lettere in 6 tentativi.</p>
 				<p>
 					<span className="pr-0.5 font-bold text-center text-gradient bg-gradient-to-r from-lime-400 via-indigo-400 to-pink-400">
@@ -35,26 +35,26 @@ const Info: React.FC = () => {
 					Dopo ogni tentativo, i colori delle tessere cambieranno per mostrarti quanto vicino sei
 					andato ad indovinare la parola.
 				</p>
-				<p className="mb-2">
+				<p className="mb-4">
 					Facciamo un esempio. Se la parola da indovinare fosse
 					<span className="pl-0.5 underline decoration-dotted">fieno</span>
 				</p>
 				<Row row={exampleRow} />
-				<p className="mt-4">
+				<p className="mt-5">
 					<span className="inline-flex justify-center items-center h-8 w-8 mr-2 rounded-lg bg-lime-400">
 						f
 					</span>
 					La lettera <span className="underline decoration-double">f</span> è nella parola ed è nel
 					posto giusto.
 				</p>
-				<p className="mt-4">
+				<p className="mt-3">
 					<span className="inline-flex justify-center items-center h-8 w-8 mr-2 rounded-lg bg-amber-400">
 						i
 					</span>
 					La lettera <span className="underline decoration-double">i</span> è nella parola ma nel
 					posto sbagliato.
 				</p>
-				<p className="mt-4">
+				<p className="mt-3">
 					<span className="inline-flex justify-center items-center h-8 w-8 rounded-lg bg-red-400">
 						u
 					</span>
@@ -68,13 +68,13 @@ const Info: React.FC = () => {
 					<span className="px-0.5 underline decoration-double">o</span>
 					<span className="px-0.5 underline decoration-double">r</span> non sono nella parola.
 				</p>
-				<p className="my-2">
+				<p className="my-4">
 					NB. Nella lista delle parole ci sono nomi e aggettivi (al maschile) ma non sono presenti
 					verbi.
 				</p>
 				<p className="flex items-center mb-10">
 					Cosa aspetti
-					<span className="px-1.5 text-lime-400 uppercase underline">
+					<span className="px-0.5 lg:px-1 text-lime-400 uppercase underline">
 						<Link to="/">Gioca!</Link>
 					</span>
 					e che la forza sia con te <BiHappy className="h-7 w-7 ml-0.5 text-white" />
