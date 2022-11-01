@@ -65,7 +65,7 @@ const Home: React.FC = () => {
 	if (isError) {
 		return <Alert />;
 	}
-	console.log(solution);
+
 	return (
 		<>
 			<Table invalidWord={invalidWord} rows={rows} />

@@ -9,7 +9,7 @@ export interface TableProps {
 const Table: React.FC<TableProps> = ({ invalidWord, rows }) => {
 	const isInvalidWord = invalidWord.length > 0;
 	return (
-		<div className="w-full flex flex-col items-center gap-3 mt-3 lg:mt-0">
+		<div data-testid="table" className="w-full flex flex-col items-center gap-3 mt-3 lg:mt-0">
 			<div
 				className={`hidden lg:flex w-8/12 h-6 justify-center items-center overflow-hidden rounded border transition ${
 					isInvalidWord ? 'border-red-400' : 'border-bck'

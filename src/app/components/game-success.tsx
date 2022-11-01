@@ -11,7 +11,7 @@ export interface GameSuccessProps {
 }
 const GameSuccess: React.FC<GameSuccessProps> = ({ gameStatus, solution }) => {
 	return (
-		<div className="flex flex-col justify-center items-center gap-10">
+		<div data-testid="modal-success" className="flex flex-col justify-center items-center gap-10">
 			<BiHappy className="h-16 w-16 text-lime-400" />
 			<h3 className="px-3 lg:px-0 text-2xl text-white/90">
 				Hai indovinato la parola "{solution}" al {gameStatus.level}° livello.
