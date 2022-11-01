@@ -30,6 +30,7 @@ const Statistics: React.FC = () => {
 		bestLevel,
 		averageLevel
 	} = data;
+	console.log(JSON.stringify(getStorage()));
 	return (
 		<div className="w-full flex flex-col gap-3 px-6 text-white">
 			<h2 className="mt-3 text-center text-4xl">Statistics</h2>
