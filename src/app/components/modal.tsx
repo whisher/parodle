@@ -14,6 +14,7 @@ export interface ModalProps {
 }
 export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 	const isSuccessFul = gameStatus.result === GameResult.SUCCESS;
+	console.log('isSuccessFul', isSuccessFul);
 	const btnMessage = isSuccessFul
 		? gameStatus.level === 1
 			? 'Ripetiti!'
@@ -39,6 +40,7 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 				open ? 'opacity-100' : 'pointer-events-none opacity-0'
 			}`}
 			onClick={onClose}
+			role="presentation"
 		>
 			<div
 				className={`w-[90vw] lg:w-[482px] h-[95vh] lg:h-1/2 flex flex-col rounded-3xl bg-bck transition-all duration-500 ease-in-out ${
@@ -56,6 +58,7 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 						<GameFailure solution={solution} />
 					)}
 					<button
+						data-testid="modal-button"
 						className="h-10 w-44 flex justify-center items-center  rounded-3xl bg-lime-400 text-xl text-white uppercase"
 						onClick={onClose}
 					>
