@@ -9,10 +9,10 @@ export interface CellProps {
 const Cell: React.FC<CellProps> = ({ char, i, match }) => {
 	const index = i + 1;
 	let classNameContainer =
-		'[perspective:1000px] h-11 w-11 lg:h-12 lg:w-12 rounded-xl overflow-hidden text-3xl text-white';
+		'[perspective:1000px] h-11 w-11 lg:h-12 lg:w-12 rounded-xl overflow-hidden text-2xl text-white';
 	let classNameTrasform = '[transform-style:preserve-3d] relative transition';
 	let classNameSpan1 =
-		'[backface-visibility:hidden] h-11 w-11 lg:h-12 lg:w-12 absolute top-0 left-0 flex justify-center items-center z-[2] [transform:rotateY(0deg)]';
+		'[backface-visibility:hidden] h-11 w-11 lg:h-12 lg:w-12 absolute top-0 left-0 flex justify-center items-center z-1 [transform:rotateY(0deg)]';
 	let classNameSpan2 =
 		'[backface-visibility:hidden] h-11 w-11 lg:h-12 lg:w-12 absolute top-0 left-0 flex justify-center items-center [transform:rotateY(180deg)]';
 	let classNameInnerSpan1 = 'transition ease-[cubic-bezier(0.34, 1.56, 0.64, 1)]';
