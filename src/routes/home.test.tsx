@@ -52,7 +52,7 @@ test('Home', async () => {
 		}
 	});
 
-	expect(screen.getByTestId('table')).toBeInTheDocument();
+	expect(await screen.findByTestId('table')).toBeInTheDocument();
 
 	fireEvent.keyDown(window, {
 		key: 'q'
