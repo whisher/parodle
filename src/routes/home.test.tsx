@@ -52,7 +52,7 @@ test('Home', async () => {
 		}
 	});
 
-	expect(await screen.findByTestId('table')).toBeInTheDocument();
+	expect(await screen.findByTestId('table')).toBeInstanceOf(HTMLElement);
 
 	fireEvent.keyDown(window, {
 		key: 'q'
@@ -104,7 +104,7 @@ test('Home', async () => {
 	});
 
 	expect(await screen.findAllByText((content, element) => content.includes('""'))).toHaveLength(2);
-	expect(await screen.findByTestId('modal-success')).toBeInTheDocument();
+	expect(await screen.findByTestId('modal-success')).toBeInstanceOf(HTMLElement);
 
 	fireEvent.click(screen.getByTestId('modal-button'));
 
