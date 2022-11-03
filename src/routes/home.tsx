@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GameResult } from '../app/types';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
 import { getGameStatus, updateRows, reset } from '../app/store/rowsSlice';
-import { useGetWordsQuery } from '../app/store/services';
 import { setStorage } from '../app/utils';
 import { KEYBOARD_KEYS } from '../app/constants';
-import { Alert } from '../app/components/alert';
-import { Loader } from '../app/components/loader';
 import { Keyboard } from '../app/components/keyboard';
 import { Modal } from '../app/components/modal';
 import { Table } from '../app/components/table';
@@ -18,13 +15,8 @@ const Home: React.FC = () => {
 	const keyboardKeysStatus = useAppSelector((state) => state.table.keyboardKeysStatus);
 	const rows = useAppSelector((state) => state.table.rows);
 	const solution = useAppSelector((state) => state.table.solution);
-	const { isError, isLoading } = useGetWordsQuery();
-	const [open, setOpen] = useState(false);
 
-	const playAgain = () => {
-		dispatch(reset());
-		setOpen(false);
-	};
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		if (gameStatus.result === GameResult.SUCCESS) {
@@ -52,19 +44,16 @@ const Home: React.FC = () => {
 		};
 	}, [dispatch]);
 
+	const playAgain = () => {
+		dispatch(reset());
+		setOpen(false);
+	};
+
 	const handleKeyboardClick = (guess: string) => {
 		if (KEYBOARD_KEYS.includes(guess)) {
 			dispatch(updateRows(guess));
 		}
 	};
-
-	if (isLoading) {
-		return <Loader />;
-	}
-
-	if (isError) {
-		return <Alert />;
-	}
 
 	return (
 		<>

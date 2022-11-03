@@ -1,14 +1,9 @@
-import {
-	ActionReducerMapBuilder,
-	createSlice,
-	createSelector,
-	PayloadAction
-} from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './';
 import type { RowDto } from '../types';
 import { GameResult, IsMatch } from '../types';
 import { ROW_LEN } from '../constants';
-import { api } from './services';
+import { WORDS } from '../constants/words';
 
 export interface RowsState {
 	solution: string;
@@ -20,7 +15,7 @@ export interface RowsState {
 }
 
 const initialState: RowsState = {
-	solution: '',
+	solution: WORDS[Math.floor(Math.random() * WORDS.length)],
 	guesses: '',
 	invalidWord: '',
 	rows: [
@@ -55,7 +50,7 @@ const initialState: RowsState = {
 			isValidWord: false
 		}
 	],
-	words: [],
+	words: WORDS,
 	keyboardKeysStatus: {}
 };
 
@@ -63,11 +58,6 @@ const rowsSlice = createSlice({
 	name: 'rows',
 	initialState,
 	reducers: {
-		setWords(state, action: PayloadAction<string[]>) {
-			state.words = action.payload;
-			const solution = state.words[Math.floor(Math.random() * state.words.length)];
-			state.solution = solution;
-		},
 		updateRows(state, action: PayloadAction<string>) {
 			let guess = action.payload;
 			let lenGuesses = state.guesses.length;
@@ -129,17 +119,10 @@ const rowsSlice = createSlice({
 
 			return { ...initialState, ...{ words: state.words }, ...{ solution } };
 		}
-	},
-	extraReducers: (builder: ActionReducerMapBuilder<RowsState>) => {
-		builder.addMatcher(api.endpoints.getWords.matchFulfilled, (state, { payload }) => {
-			state.words = payload;
-			const solution = state.words[Math.floor(Math.random() * state.words.length)];
-			state.solution = solution;
-		});
 	}
 });
 
-export const { setWords, updateRows, reset } = rowsSlice.actions;
+export const { updateRows, reset } = rowsSlice.actions;
 export default rowsSlice.reducer;
 
 export const getGameStatus = createSelector(
