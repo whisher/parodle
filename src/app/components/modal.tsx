@@ -10,10 +10,11 @@ export interface ModalProps {
 		level: number;
 		result: GameResult;
 	};
+	image: string | null;
 	solution: string;
 	onClose: () => void;
 }
-export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
+export const Modal: React.FC<ModalProps> = ({ open, gameStatus, image, solution, onClose }) => {
 	const isSuccessFul = gameStatus.result === GameResult.SUCCESS;
 	const btnMessage = isSuccessFul
 		? gameStatus.level === 1
@@ -34,17 +35,23 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 		};
 	}, [onClose]);
 
+	const onCloseHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+		if ((e.target as HTMLElement).classList.contains('fixed')) {
+			onClose();
+		}
+	};
+
 	return createPortal(
 		<div
 			className={`fixed inset-0 flex justify-center items-center bg-gradient-to-r from-gradient-from to-gradient-to transition-opacity duration-1000 linear ${
 				open ? 'opacity-100' : 'pointer-events-none opacity-0'
 			}`}
-			onClick={onClose}
+			onClick={onCloseHandler}
 			role="presentation"
 		>
 			{gameStatus.result !== GameResult.PLAYING ? (
 				<div
-					className={`w-[90vw] lg:w-[482px] h-[95vh] lg:h-1/2 flex flex-col rounded-3xl bg-bck transition-all duration-500 ease-in-out ${
+					className={`w-[90vw] lg:w-[482px] h-[95vh] lg:h-1/2 flex flex-col rounded-3xl bg-bck transition duration-500 ease-in-out ${
 						open
 							? `opacity-100 border-2 lg:-translate-y-0 ${
 									isSuccessFul ? 'border-lime-400' : 'border-red-400'
@@ -67,9 +74,9 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 						</button>
 					</div>
 					{isSuccessFul ? (
-						<div className="flex justify-end pr-6 pb-6">
+						<a href={String(image)} className="flex justify-end pr-6 pb-6" download>
 							<BiDownload className="h-10 w-10 text-white/80" />
-						</div>
+						</a>
 					) : null}
 				</div>
 			) : null}
