@@ -22,7 +22,6 @@ const Home: React.FC = () => {
 	useEffect(() => {
 		if (gameStatus.result === GameResult.SUCCESS) {
 			setStorage(gameStatus);
-
 			takeScreenShot(divEl.current);
 			setImage(null);
 			setOpen(true);
@@ -31,7 +30,7 @@ const Home: React.FC = () => {
 			setStorage(gameStatus);
 			setOpen(true);
 		}
-	}, [gameStatus]);
+	}, [gameStatus, setImage]);
 
 	useEffect(() => {
 		const handleGuesses = (ev: Event): void => {
