@@ -54,7 +54,7 @@ const Home: React.FC = () => {
 			dispatch(updateRows(guess));
 		}
 	};
-
+	console.log(solution);
 	return (
 		<>
 			<Table invalidWord={invalidWord} rows={rows} />

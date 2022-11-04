@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { BiDownload } from 'react-icons/bi';
 import { GameResult } from '../types';
 import { GameFailure } from './game-failure';
 import { GameSuccess } from './game-success';
@@ -64,6 +65,11 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 						{btnMessage}
 					</button>
 				</div>
+				{isSuccessFul ? (
+					<div className="flex justify-end pr-6 pb-6">
+						<BiDownload className="h-10 w-10 text-white/80" />
+					</div>
+				) : null}
 			</div>
 		</div>,
 		document.body
