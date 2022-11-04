@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { GameResult } from '../app/types';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
 import { getGameStatus, updateRows, reset } from '../app/store/rowsSlice';
@@ -7,7 +7,7 @@ import { KEYBOARD_KEYS } from '../app/constants';
 import { Keyboard } from '../app/components/keyboard';
 import { Modal } from '../app/components/modal';
 import { Table } from '../app/components/table';
-
+import { useScreenshot } from '../app/utils/useScreenshot';
 const Home: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const gameStatus = useAppSelector(getGameStatus);
@@ -17,10 +17,14 @@ const Home: React.FC = () => {
 	const solution = useAppSelector((state) => state.table.solution);
 
 	const [open, setOpen] = useState(false);
-
+	const divEl = useRef<HTMLInputElement | null>(null);
+	const { image, setImage, takeScreenShot } = useScreenshot({ type: 'image/png', quality: 1.0 });
 	useEffect(() => {
 		if (gameStatus.result === GameResult.SUCCESS) {
 			setStorage(gameStatus);
+
+			takeScreenShot(divEl.current);
+			setImage(null);
 			setOpen(true);
 		}
 		if (gameStatus.result === GameResult.FAILURE) {
@@ -54,12 +58,22 @@ const Home: React.FC = () => {
 			dispatch(updateRows(guess));
 		}
 	};
+
 	console.log(solution);
 	return (
 		<>
-			<Table invalidWord={invalidWord} rows={rows} />
+			<div ref={divEl} className="bg-bck px-3">
+				<Table invalidWord={invalidWord} rows={rows} />
+			</div>
+
 			<Keyboard keyboardKeysStatus={keyboardKeysStatus} handleKeyboardClick={handleKeyboardClick} />
-			<Modal open={open} gameStatus={gameStatus} solution={solution} onClose={playAgain} />
+			<Modal
+				open={open}
+				gameStatus={gameStatus}
+				image={image}
+				solution={solution}
+				onClose={playAgain}
+			/>
 		</>
 	);
 };
