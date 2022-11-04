@@ -28,7 +28,19 @@ const useScreenshot = ({ type, quality }: ScreenshotParams) => {
 				throw new Error('You should provide correct html node.');
 			}
 			try {
-				const canvas = await html2canvas(node);
+				const canvas = await html2canvas(node, {
+					onclone: function (document: Document) {
+						const h1 = document.createElement('h1');
+						h1.className = 'uppercase text-5xl font-bold text-center text-white pl-3';
+						const text = document.createTextNode('Parodle');
+						h1.appendChild(text);
+						const el = document.getElementById(node.id) as HTMLElement;
+						el.style.padding = '16px';
+						el.prepend(h1);
+					},
+					scrollX: 0,
+					scrollY: 0
+				});
 				const croppedCanvas = document.createElement('canvas');
 				const croppedCanvasContext = croppedCanvas.getContext('2d');
 				const cropPositionTop = 0;

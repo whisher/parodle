@@ -61,7 +61,7 @@ const Home: React.FC = () => {
 	console.log(solution);
 	return (
 		<>
-			<div ref={divEl} className="bg-bck px-3">
+			<div ref={divEl} id="js-canvas" className="bg-bck">
 				<Table invalidWord={invalidWord} rows={rows} />
 			</div>
 
