@@ -23,8 +23,8 @@ const Home: React.FC = () => {
 		if (gameStatus.result === GameResult.SUCCESS) {
 			setStorage(gameStatus);
 			takeScreenShot(divEl.current);
-			setImage(null);
 			setOpen(true);
+			setImage(null);
 		}
 		if (gameStatus.result === GameResult.FAILURE) {
 			setStorage(gameStatus);
