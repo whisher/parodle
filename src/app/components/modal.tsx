@@ -42,35 +42,37 @@ export const Modal = ({ open, gameStatus, solution, onClose }: ModalProps) => {
 			onClick={onClose}
 			role="presentation"
 		>
-			<div
-				className={`w-[90vw] lg:w-[482px] h-[95vh] lg:h-1/2 flex flex-col rounded-3xl bg-bck transition-all duration-500 ease-in-out ${
-					open
-						? `opacity-100 border-2 lg:-translate-y-0 ${
-								isSuccessFul ? 'border-lime-400' : 'border-red-400'
-						  }`
-						: 'opacity-0 pointer-events-none  -translate-y-full'
-				} `}
-			>
-				<div className="flex-1 flex flex-col justify-center items-center gap-10">
-					{isSuccessFul ? (
-						<GameSuccess gameStatus={gameStatus} solution={solution} />
-					) : (
-						<GameFailure solution={solution} />
-					)}
-					<button
-						data-testid="modal-button"
-						className="h-10 w-44 flex justify-center items-center  rounded-3xl bg-lime-400 text-xl text-white uppercase"
-						onClick={onClose}
-					>
-						{btnMessage}
-					</button>
-				</div>
-				{isSuccessFul ? (
-					<div className="flex justify-end pr-6 pb-6">
-						<BiDownload className="h-10 w-10 text-white/80" />
+			{gameStatus.result !== GameResult.PLAYING ? (
+				<div
+					className={`w-[90vw] lg:w-[482px] h-[95vh] lg:h-1/2 flex flex-col rounded-3xl bg-bck transition-all duration-500 ease-in-out ${
+						open
+							? `opacity-100 border-2 lg:-translate-y-0 ${
+									isSuccessFul ? 'border-lime-400' : 'border-red-400'
+							  }`
+							: 'opacity-0 pointer-events-none  -translate-y-full'
+					} `}
+				>
+					<div className="flex-1 flex flex-col justify-center items-center gap-10">
+						{isSuccessFul ? (
+							<GameSuccess gameStatus={gameStatus} solution={solution} />
+						) : (
+							<GameFailure solution={solution} />
+						)}
+						<button
+							data-testid="modal-button"
+							className="h-10 w-44 flex justify-center items-center  rounded-3xl bg-lime-400 text-xl text-white uppercase"
+							onClick={onClose}
+						>
+							{btnMessage}
+						</button>
 					</div>
-				) : null}
-			</div>
+					{isSuccessFul ? (
+						<div className="flex justify-end pr-6 pb-6">
+							<BiDownload className="h-10 w-10 text-white/80" />
+						</div>
+					) : null}
+				</div>
+			) : null}
 		</div>,
 		document.body
 	);
