@@ -112,12 +112,8 @@ const rowsSlice = createSlice({
 			}
 		},
 		reset(state) {
-			const solution = [...state.words]
-				.map((value) => ({ value, sort: Math.random() }))
-				.sort((a, b) => a.sort - b.sort)
-				.map(({ value }) => value)[Math.floor(Math.random() * state.words.length)];
-
-			return { ...initialState, ...{ words: state.words }, ...{ solution } };
+			const solution = state.words[Math.floor(Math.random() * state.words.length)];
+			return { ...initialState, ...{ solution } };
 		}
 	}
 });

@@ -1,5 +1,5 @@
 import type { StatisticResultDto } from '../types';
-import { getStatistics, StatisticDto } from './';
+import { getStatistics, StatisticDto } from '.';
 test('Statistics', () => {
 	const results: StatisticResultDto[] = [
 		{ level: 6, result: 0, timestamp: 1667214897409 },
