@@ -58,7 +58,6 @@ const Home: React.FC = () => {
 		}
 	};
 
-	console.log(solution);
 	return (
 		<>
 			<div ref={divEl} id="js-canvas" className="bg-bck">
